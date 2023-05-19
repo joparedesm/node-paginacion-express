@@ -1,5 +1,68 @@
-<pre>
-    <%= products %>
-    <%= current  %>
-    <%= pages  %>
-</pre>
+<%- include('../partials/header') %>
+<div class="container my-4">
+    <div class="card-deck row p-4">
+
+        <!-- products -->
+        <% products.map((product) => { %>
+            <div class="col-12 col-md-6 col-lg-4 p-4 d-flex align-items-stretch">
+                <div class="card ">
+                    <!-- Imagen de la tarjeta -->
+                    <img class="card-img-top" src="<%- product.image %>">
+                    <!-- Cuerpo de la tarjeta -->
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h3 class="card-title"><%- product.name %></h3>
+                        <p class="card-text category"><%- product.category %></p>
+                        <p class="card-text">price<br>$<%- product.price %></p>
+                        <p class="card-text"><%- product.description %></p>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+
+    </div>
+    <div class="row">
+        <% if(pages) {%>
+            <% let page = parseInt(current,10); %>
+            <nav class="mx-auto">
+                <ul class="pagination">
+                    <!-- Primera pagina -->
+                    <% if (page > 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="<%- page - 1 %>">Back</a>
+                        </li>
+                    <% } %>
+                    <!-- Paginas -->
+                    <% let i = page > 5 ? page - 4 : 1 %>
+                    <% if (i !== 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    <% } %>
+                    <% for(i; i <= ( page + 4 ) && i<= pages; i++) { %>
+                        <% if ( i == page) { %>
+                            <li class="page-item active">
+                                <a class="page-link" href="<%- i %>"><%- i %></a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                                <a class="page-link" href="<%- i %>"><%- i %></a>
+                            </li>
+                        <% } %>
+                    <% } %>
+                    <% if (page <= ( pages - 5 )) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    <% } %>
+                    <!-- Ultima pagina -->
+                    <% if (page < pages) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="<%- page + 1 %>">Next</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </nav>
+        <% } %>
+    </div>
+</div>
+<%- include('../partials/footer') %>

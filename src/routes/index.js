@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {faker} = require('@faker-js/faker');
+const { fakerES: faker } = require('@faker-js/faker');
 const Product = require('../models/product');
 
 router.get('/', (req, res) => {
